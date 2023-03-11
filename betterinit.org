@@ -199,6 +199,7 @@ Keeps the cursor in the center of the screen.
 
 #+begin_src elisp
   (use-package centered-cursor-mode
+    :straight t
     :config
     (global-centered-cursor-mode))
 #+end_src
@@ -217,7 +218,7 @@ Adds those cool lines when indenting.
 Tabs that look a lot better than the native ones.
 
 #+begin_src elisp
-  (use-package centaur-tabs)
+  (use-package centaur-tabs :straight t)
   (centaur-tabs-mode 1)
   ;; Cycle through tabs with Emacs style keybindings
   (global-set-key (kbd "C-<prior>") 'centaur-tabs-backward)
@@ -240,7 +241,7 @@ Tabs that look a lot better than the native ones.
 A sweet-looking dashboard on startup.
 
 #+begin_src elisp
-  (use-package dashboard)
+  (use-package dashboard :straight t)
   (dashboard-setup-startup-hook)
   ;; Set the title
   (setq dashboard-banner-logo-title "Welcome to GNU Emacs.")
@@ -282,6 +283,7 @@ Not sure what this does, probably gives evil bindings for some packages.
 
 #+begin_src elisp
   (use-package evil-collection
+    :straight t
     :ensure t
     :after evil
     :init
