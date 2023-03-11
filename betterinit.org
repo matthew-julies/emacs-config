@@ -1,6 +1,8 @@
 #+title: My Emacs Configuration File
 #+author: Matthew Julies
 
+A pretty standard setup, basically just copy-and-pasted from all over the place. Not created much knowledge about elisp, so this init is probably horribly optimized. Works though.
+
 * System Setup
 
 ** Define the custom file
@@ -81,21 +83,6 @@ Some custom keymaps to make life easier.
   (global-set-key (kbd "C-k") 'kill-this-buffer)
 #+end_src
 
-** Show time and CPU temps
-Displays the time and CPU temperature in the modeline.
-
-#+begin_src elisp
-  (display-time-mode 1)
-  (use-package emacs-cpu-temperature
-  :straight (:host github :repo "zhenhua-wang/emacs-cpu-temperature")
-  :config
-  (setq cpu-temperature-update-interval 1
-        cpu-temperature-termal-zone-type "x86_pkg_temp"
-        cpu-temperature-termal-zone-path "/sys/class/thermal/")
-  (cpu-temperature-mode 1))
-  (add-to-list 'global-mode-string 'cpu-temperature-string t)
-#+end_src
-
 * Packages
 
 ** Org-mode
@@ -141,7 +128,6 @@ Not entirely sure what Helm does, but it makes M-x look nice. Vertico is better,
   ;; Show kill ring, pick something to paste
   (global-set-key (kbd "M-y") 'helm-show-kill-ring)  
   :straight t)
-
 #+end_src
 
 ** Doom-Modeline
@@ -174,6 +160,7 @@ The themes that come packaged with Doom Emacs. I only use it because it's recomm
 #+begin_src elisp
   (use-package doom-themes :straight t)
   (load-theme 'doom-solarized-dark t)
+
 #+end_src
  
 ** Company
@@ -240,7 +227,7 @@ Tabs that look a lot better than the native ones.
   (define-key evil-normal-state-map (kbd "g t") 'centaur-tabs-forward)
   ;; Lets you have a little bar on the tab
   (setq centaur-tabs-style "bar")
-  (setq centaur-tabs-set-bar 'left)
+  ;; (setq centaur-tabs-set-bar 'left)
   ;; Show an icon that's related to the content in the tab
   (setq centaur-tabs-set-icons t)
   ;; Set the height of the tab
@@ -271,7 +258,6 @@ A sweet-looking dashboard on startup.
   (setq dashboard-set-file-icons t)
 #+end_src
 
-
 ** Emacs Multi-Media System
 A funky fresh media player for emacs.
 
@@ -291,20 +277,6 @@ A Calibre client for emacs.
   (setq calibredb-db-dir (expand-file-name "metadata.db" calibredb-root-dir))
 #+end_src
 
-** W3M
-A web browser for Emacs.
-
-#+begin_src elisp
-  (use-package w3m :straight t)
-#+end_src
-
-** Magit
-A git interface for Emacs.
-
-#+begin_src elisp
-  (use-package magit :straight t)
-#+end_src
-
 ** Evil Collection
 Not sure what this does, probably gives evil bindings for some packages.
 
@@ -314,4 +286,26 @@ Not sure what this does, probably gives evil bindings for some packages.
     :after evil
     :init
   (evil-collection-init))
+#+end_src
+
+** Show time and CPU temps
+Displays the time and CPU temperature in the modeline.
+
+#+begin_src elisp
+  (display-time-mode 1)
+  (use-package emacs-cpu-temperature
+  :straight (:host github :repo "zhenhua-wang/emacs-cpu-temperature")
+  :config
+  (setq cpu-temperature-update-interval 1
+        cpu-temperature-termal-zone-type "x86_pkg_temp"
+        cpu-temperature-termal-zone-path "/sys/class/thermal/")
+  (cpu-temperature-mode 1))
+  (add-to-list 'global-mode-string 'cpu-temperature-string t)
+#+end_src
+
+** SLIME (Superior Lisp Interaction Mode for Emacs)
+
+#+begin_src elisp
+  (use-package slime)
+  (setq inferior-lisp-program "sbcl")
 #+end_src
