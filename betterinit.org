@@ -1,6 +1,21 @@
 #+title: My Emacs Configuration
 #+author: Matthew Julies
 
+This file is part of GNU Emacs.
+
+GNU Emacs is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+GNU Emacs is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with GNU Emacs.  If not, see <https://www.gnu.org/licenses/>.
+
 * System Settings
 
 ** Custom.el
@@ -43,21 +58,27 @@ Some tasks require you to use 'yes' or 'no' instead of a single letter.
   (defalias 'yes-or-no-p 'y-or-n-p)
 #+end_src
 
+** Keymaps
+Some custom keymaps to make life easier.
+
+#+begin_src elisp
+  (global-set-key (kbd "C-k") 'kill-this-buffer)
+#+end_src
+
 * System Editor Settings 
 
 ** Autopair
 Automatically adds a closing parenthesis or quotation mark.
 
 #+begin_src emacs-lisp
-  (setq electric-pair-mode t)
+  (electric-pair-mode 1)
 #+end_src
 
 ** Line Numbers
 Shows line number when programming.
 
 #+begin_src emacs-lisp
-  (add-hook 'prog-mode-hook 'linum-mode)
-  (custom-set-variables '(linum-format 'dynamic))
+  (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 #+end_src
 
 * 3rd-Party Packages
@@ -80,7 +101,8 @@ Emacs incremental completion and selection narrowing framework... It's completio
   (use-package helm :straight t
 	:config
 	(helm-mode 1)
-	(global-set-key (kbd "M-x") 'helm-M-x))
+	(global-set-key (kbd "M-x") 'helm-M-x)
+  	(global-set-key (kbd "C-x C-f") 'helm-find-files))
 #+end_src
 
 ** Doom Modeline
@@ -124,7 +146,7 @@ Terminal emulator for Emacs.
 ** Center the cursor
 Keeps the cursor in the center of the screen.
 
-#+begin_src elisp
+#+begin_src emacs-lisp
   (use-package centered-cursor-mode
     :straight t
     :config
@@ -143,7 +165,7 @@ Show a line character when indenting.
 ** Centaur Tabs
 Tabs for Emacs.
 
-#+begin_src elisp
+#+begin_src emacs-lisp
   (use-package centaur-tabs :straight t)
   (centaur-tabs-mode 1)
   ;; Cycle through tabs with Emacs style keybindings
@@ -166,7 +188,7 @@ Tabs for Emacs.
 ** Dashboard
 A sweet-looking dashboard on startup.
 
-#+begin_src elisp
+#+begin_src emacs-lisp
   (use-package dashboard :straight t)
   (dashboard-setup-startup-hook)
   ;; Set the title
@@ -188,7 +210,7 @@ A sweet-looking dashboard on startup.
 ** Show time and CPU temps
 Displays the time and CPU temperature in the modeline.
 
-#+begin_src elisp
+#+begin_src emacs-lisp
   (display-time-mode 1)
   (use-package emacs-cpu-temperature
   :straight (:host github :repo "zhenhua-wang/emacs-cpu-temperature")
@@ -198,4 +220,12 @@ Displays the time and CPU temperature in the modeline.
         cpu-temperature-termal-zone-path "/sys/class/thermal/")
   (cpu-temperature-mode 1))
   (add-to-list 'global-mode-string 'cpu-temperature-string t)
+#+end_src
+
+** Company
+A sweet in-buffer completion package.
+
+#+begin_src emacs-lisp
+  (use-package company)
+  (company-mode 1)
 #+end_src
